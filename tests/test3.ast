@@ -1,0 +1,25 @@
+(PROGRAM (NAME test3)
+	(CLASS_DECL (NAME Foo)
+		(VAR_DECL (TYPE int) (NAME Attr))
+	)
+	(PROC_DECL (NAME Main)
+		(VAR_DECL (TYPE Foo) (NAME f))
+
+		(ASSIGN_STMT
+			(NAME f)
+			(NEW (TYPE Foo))
+		)
+		(ASSIGN_STMT
+			( . (NAME f) (NAME Attr))
+			(INT_LITERAL 42)
+		)
+		(CALL_STMT (NAME printint) 
+			( . (NAME f) (NAME Attr))
+		)
+
+		(CALL_STMT (NAME printfloat) 
+			( . (NAME f) (NAME Attr))
+		)
+
+	)
+)
