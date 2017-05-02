@@ -1,0 +1,35 @@
+(PROGRAM (NAME test1)
+	(PROC_DECL (NAME Main)
+		(VAR_DECL (TYPE bool) (NAME flag))
+		(VAR_DECL (TYPE int) (NAME val))
+		(VAR_DECL (TYPE float) (NAME real))
+
+		(ASSIGN_STMT
+			(NAME val)
+			(INT_LITERAL 42)
+		)
+		(ASSIGN_STMT
+			(NAME flag)
+			(REL_OP >
+				(NAME val)
+				(INT_LITERAL 40)
+			)
+		)
+		(ASSIGN_STMT
+			(NAME real)
+			(NAME val)
+		)
+		(CALL_STMT (NAME printfloat) 
+			(NAME real)
+		)
+
+		(CALL_STMT (NAME printfloat) 
+			(NAME val)
+		)
+
+		(CALL_STMT (NAME printint) 
+			(NAME val)
+		)
+
+	)
+)

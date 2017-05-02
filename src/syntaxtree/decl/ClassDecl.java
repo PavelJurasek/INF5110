@@ -6,6 +6,10 @@ import typesystem.TypeError;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+import bytecode.type.*;
 
 public class ClassDecl extends Decl {
 
@@ -56,5 +60,21 @@ public class ClassDecl extends Decl {
 
             types.put(name, decl.getType());
         }
+    }
+
+    @Override
+    public void generateCode(CodeFile codefile){
+      codefile.addStruct(name);
+
+      CodeStruct codestruct= new CodeStruct(name);
+      for(VarDecl decl: vars){
+        decl.generateCode(codestruct, codefile);
+      }
+      codefile.updateStruct(codestruct);
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeprocedure){
+
     }
 }

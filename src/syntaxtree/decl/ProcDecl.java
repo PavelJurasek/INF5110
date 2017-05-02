@@ -10,6 +10,10 @@ import typesystem.TypeError;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import bytecode.type.*;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.type.CodeType;
 
 public class ProcDecl extends Decl {
 
@@ -170,4 +174,23 @@ public class ProcDecl extends Decl {
 //        }
     }
 
+    
+    public void generateCode(CodeFile codefile){
+      codefile.addProcedure(name);
+      CodeProcedure codeprocedure=new CodeProcedure(name, VoidType.TYPE, codefile);
+
+      for(ParamDecl paramdecl: params){
+        paramdecl.generateCode(codeprocedure);
+      }
+
+      for(Decl decl:decls){
+        decl.generateCode(codeprocedure);
+      }
+
+      for(Stmt stmt:stmts){
+        stmt.generateCode(codeprocedure);
+      }
+
+  		codefile.updateProcedure(codeprocedure);
+      }
 }
