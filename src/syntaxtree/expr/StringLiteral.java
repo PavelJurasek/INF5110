@@ -1,4 +1,6 @@
 package syntaxtree.expr;
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHSTRING;
 
 public class StringLiteral extends LiteralExpr {
 
@@ -16,6 +18,12 @@ public class StringLiteral extends LiteralExpr {
 	@Override
 	public String getType() {
 		return "string";
+	}
+
+	@Override
+	public void generateCode(CodeProcedure codeprocedure){
+		int i=codeprocedure.addStringConstant(name);
+		codeprocedure.addInstruction(new PUSHSTRING(i));
 	}
 
 }

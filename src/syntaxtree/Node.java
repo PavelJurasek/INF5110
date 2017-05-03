@@ -1,7 +1,8 @@
 package syntaxtree;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
 
-/**
- * Created by pjurasek on 28.02.17.
- */
 abstract class Node implements PrintAst {
+
 }

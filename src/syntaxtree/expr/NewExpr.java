@@ -2,6 +2,8 @@ package syntaxtree.expr;
 
 import syntaxtree.Type;
 import java.util.Hashtable;
+import bytecode.instructions.*;
+import bytecode.CodeProcedure;
 
 public class NewExpr extends UnaryExpr {
 
@@ -29,6 +31,12 @@ public class NewExpr extends UnaryExpr {
     @Override
     public void setType(Hashtable<String, String> types) {
 
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeprocedure){
+      int structNum=codeprocedure.structNumber(type.get());
+      codeprocedure.addInstruction(new NEW(structNum));
     }
 
 }

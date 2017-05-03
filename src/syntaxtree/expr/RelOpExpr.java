@@ -3,6 +3,8 @@ package syntaxtree.expr;
 import syntaxtree.Expr;
 import typesystem.TypeChecker;
 import typesystem.TypeError;
+import bytecode.instructions.*;
+import bytecode.CodeProcedure;
 
 import java.util.Hashtable;
 
@@ -44,6 +46,30 @@ public class RelOpExpr extends BinaryExpr {
         if (!TypeChecker.isValid(left.getType(), right.getType())) {
             throw new TypeError("Invalid relation operation arguments: "+ left.getType() +" and "+ right.getType());
         }
+    }
+
+    @Override
+    public void generateCode(CodeProcedure codeprocedure){
+      left.generateCode(codeprocedure);
+      right.generateCode(codeprocedure);
+      if(op.equals("=")){
+        codeprocedure.addInstruction(new EQ());
+      }
+      if(op.equals("<>")){
+        codeprocedure.addInstruction(new NEQ());
+      }
+      if(op.equals("<")){
+        codeprocedure.addInstruction(new LT());
+      }
+      if(op.equals("<=")){
+        codeprocedure.addInstruction(new LTEQ());
+      }
+      if(op.equals(">")){
+        codeprocedure.addInstruction(new GT());
+      }
+      if(op.equals(">=")){
+        codeprocedure.addInstruction(new GTEQ());
+      }
     }
 
 }

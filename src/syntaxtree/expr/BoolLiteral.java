@@ -1,4 +1,6 @@
 package syntaxtree.expr;
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHBOOL;
 
 public class BoolLiteral extends LiteralExpr {
 
@@ -18,4 +20,8 @@ public class BoolLiteral extends LiteralExpr {
 		return "bool";
 	}
 
+	@Override
+	public void generateCode(CodeProcedure codeprocedure){
+		codeprocedure.addInstruction(new PUSHBOOL(name));
+	}
 }

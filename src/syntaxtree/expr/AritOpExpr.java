@@ -4,6 +4,8 @@ import syntaxtree.Expr;
 import typesystem.TypeChecker;
 import typesystem.TypeError;
 import java.util.Hashtable;
+import bytecode.instructions.*;
+import bytecode.CodeProcedure;
 
 public class AritOpExpr extends BinaryExpr {
 
@@ -54,4 +56,24 @@ public class AritOpExpr extends BinaryExpr {
 //        }
     }
 
+    @Override
+    public void generateCode(CodeProcedure codeprocedure){
+      left.generateCode(codeprocedure);
+      right.generateCode(codeprocedure);
+      if(op.equals("+")){
+        codeprocedure.addInstruction(new ADD());
+      }
+      if(op.equals("-")){
+        codeprocedure.addInstruction(new SUB());
+      }
+      if(op.equals("*")){
+        codeprocedure.addInstruction(new MUL());
+      }
+      if(op.equals("/")){
+        codeprocedure.addInstruction(new DIV());
+      }
+      if(op.equals("#")){
+        codeprocedure.addInstruction(new EXP());
+      }
+    }
 }

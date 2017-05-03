@@ -1,4 +1,6 @@
 package syntaxtree.expr;
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHINT;
 
 public class IntLiteral extends LiteralExpr {
 
@@ -16,6 +18,11 @@ public class IntLiteral extends LiteralExpr {
 	@Override
 	public String getType() {
 		return "int";
+	}
+
+	@Override
+	public void generateCode(CodeProcedure codeprocedure){
+		codeprocedure.addInstruction(new PUSHINT(name));
 	}
 
 }

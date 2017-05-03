@@ -3,7 +3,8 @@ package syntaxtree.expr;
 import syntaxtree.Expr;
 import syntaxtree.StringUtils;
 import typesystem.TypeError;
-
+import bytecode.instructions.*;
+import bytecode.CodeProcedure;
 import java.util.Hashtable;
 
 public class NotExpr extends UnaryExpr {
@@ -45,5 +46,12 @@ public class NotExpr extends UnaryExpr {
             throw new TypeError("Not: operand type must be bool, "+ this.expr.getType() +" given.");
         }
     }
+
+    @Override
+    public void generateCode(CodeProcedure codeprocedure){
+      expr.generateCode(codeprocedure);
+      codeprocedure.addInstruction(new NOT());
+    }
+
 
 }

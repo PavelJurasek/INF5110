@@ -1,4 +1,6 @@
 package syntaxtree.expr;
+import bytecode.CodeProcedure;
+import bytecode.instructions.PUSHFLOAT;
 
 public class FloatLiteral extends LiteralExpr {
 
@@ -16,6 +18,11 @@ public class FloatLiteral extends LiteralExpr {
 	@Override
 	public String getType() {
 		return "float";
+	}
+
+	@Override
+	public void generateCode(CodeProcedure codeprocedure){
+		codeprocedure.addInstruction(new PUSHFLOAT(name));
 	}
 
 }
