@@ -5,11 +5,19 @@ import syntaxtree.Stmt;
 import syntaxtree.StringUtils;
 import syntaxtree.Type;
 import syntaxtree.stmt.ReturnStmt;
+
 import typesystem.TypeChecker;
 import typesystem.TypeError;
+
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+
+import bytecode.type.VoidType;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+import bytecode.type.CodeType;
 
 public class ProcDecl extends Decl {
 
@@ -170,4 +178,28 @@ public class ProcDecl extends Decl {
 //        }
     }
 
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs){
+        cf.addProcedure(name);
+
+        CodeProcedure newProc = new CodeProcedure(name, VoidType.TYPE, cf);
+
+        for(ParamDecl paramdecl: params){
+            paramdecl.generateCode(cf, newProc, null);
+        }
+
+        for(Decl decl:decls){
+            decl.generateCode(cf, newProc, null);
+        }
+
+        for(Stmt stmt:stmts){
+            //stmt.generateCode(codeprocedure);
+        }
+
+        cf.updateProcedure(newProc);
+
+        if (name.equalsIgnoreCase("main")) {
+            cf.setMain(name);
+        }
+    }
 }

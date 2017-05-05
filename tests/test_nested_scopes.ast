@@ -1,0 +1,21 @@
+(PROGRAM (NAME test_nested_scopes)
+	(PROC_DECL (NAME Main)
+		(VAR_DECL (TYPE bool) (NAME flag))
+		(PROC_DECL (NAME change_flag)
+			(ASSIGN_STMT
+				(NAME flag)
+								(NOT 
+(NAME flag)
+				)
+			)
+		)
+
+		(ASSIGN_STMT
+			(NAME flag)
+			(BOOL_LITERAL false)
+		)
+		(CALL_STMT (NAME change_flag) 
+		)
+
+	)
+)

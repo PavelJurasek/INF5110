@@ -1,6 +1,7 @@
 package compiler;
 
 import java.io.*;
+import runtime.VirtualMachine;
 
 import bytecode.CodeFile;
 
@@ -33,7 +34,7 @@ public class Compiler {
 		// Check semanics.
 		if (program.typeCheck()) { // If it is all ok:
 			writeAST(program);
-//			generateCode(program);
+			generateCode(program);
 			return 0;
 		} else if (false){ // If there is a SYNTAX ERROR (Should not get that for the tests):
 			return 1;
@@ -53,6 +54,8 @@ public class Compiler {
 		DataOutputStream stream = new DataOutputStream(new FileOutputStream (this.binFilename));
 		stream.write(bytecode);
 		stream.close();
+        VirtualMachine vm = new VirtualMachine(this.binFilename);
+        vm.list();
 	}
 	public static void main(String[] args) {
 		Compiler compiler = new Compiler(args[0], args[1], args[2]);

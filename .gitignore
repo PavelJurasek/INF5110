@@ -1,3 +1,4 @@
 INF5110.iml
 build/*
 src-gen/*
+*.DS_Store
