@@ -19,7 +19,10 @@ public class Program implements PrintAst {
         this.name = name;
     }
 
-    public void generateCode(CodeFile file) {
+    public void generateCode(CodeFile codefile) {
+      for(Decl decl: decls){
+        decl.generateCode(codefile, null, null);
+      }
 
     }
 
@@ -39,7 +42,7 @@ public class Program implements PrintAst {
         }
         sb.append(")");
         return sb.toString();
-        
+
     }
 
     public boolean typeCheck() {

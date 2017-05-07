@@ -1,54 +1,42 @@
 program CompilaCmp
 begin
+  class Complex
+    begin
+        var Real : float;
+        var Imag : float;
+    end;
+  var dummy : Complex;
 
-  class Complex begin
-     var Real : float;
-     var Imag : float;
- end;
-
-  proc Swap(a : ref(int), b : ref(int))
+  proc Add(x : int, y : int): int
   begin
-     var tmp : int;
-     tmp := deref(a);
-     deref(a) := deref(b);
-     deref(b) := tmp;
+    var i : int;
+    var j : float;
+    var lit : bool;
+    i := 5;
+    while (i > 0) do
+      begin
+      i := i - 1;
+      end;
+    i := i + 10;
+    i := i - 1;
+    i := i * 2;
+    i := i / 2;
+    //j := 1.0 # 2.0;
+    lit := true;
+    if (lit) then
+      begin
+      i := 0;
+      end
+    else
+      begin
+      i := 1;
+      end;
+    return i + y;
   end;
-  
-  proc Add(a : Complex, b : Complex) : Complex 
-  begin
-     var retval : Complex;
-     retval := new Complex;
-     retval.Real := a.Real + b.Real;
-     retval.Imag := a.Imag + b.Imag;
-     
-     return retval;
-  end;
 
-  proc Max(a : int, b : int) : int 
+  proc Main()
   begin
-     if a > b then 
-     begin
-        return a;
-     end;
-     
-     return b;
-  end;
-
-  proc Main() 
-  begin
-     proc Square (val : float) : float
-     begin
-        return val # 2.0;
-     end;
-     
-     var num : float;
-     num := 6.480740;
-     print_float( num );
-     print_str( " squared is " );
-     print_float( Square( num ) );
-   
+    printint(Add(1, 2));
     return;
   end;
-
 end;
-

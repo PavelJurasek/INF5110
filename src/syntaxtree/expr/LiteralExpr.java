@@ -1,5 +1,8 @@
 package syntaxtree.expr;
 
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
 import java.util.Hashtable;
 
 public abstract class LiteralExpr extends UnaryExpr {
@@ -20,5 +23,8 @@ public abstract class LiteralExpr extends UnaryExpr {
     public void setType(Hashtable<String, String> types) {
         // literals have type on their own
     }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs) {}
 
 }

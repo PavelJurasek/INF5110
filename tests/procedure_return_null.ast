@@ -1,0 +1,8 @@
+(PROGRAM (NAME procedure_return_null)
+	(PROC_DECL (NAME Main)
+	)
+	(PROC_DECL (TYPE string) (NAME test)
+		(RETURN_STMT (STRING_LITERAL "null"))
+
+	)
+)

@@ -5,6 +5,10 @@ import syntaxtree.Stmt;
 import syntaxtree.StringUtils;
 import syntaxtree.decl.ProcDecl;
 import typesystem.TypeError;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+import bytecode.instructions.*;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -66,6 +70,24 @@ public class IfStmt extends Stmt {
     @Override
     public String getType() {
         return expr.getType();
+    }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs) {
+        expr.generateCode(cf, cp, cs);
+        int ifCondition = cp.addInstruction(new NOP());
+        for (Stmt stmt: thenStmts) {
+            stmt.generateCode(cf, cp, cs);
+        }
+        int beforeElse = cp.addInstruction(new NOP());
+        int elseJmp = cp.addInstruction(new NOP());
+        for (Stmt stmt: elseStmts) {
+            stmt.generateCode(cf, cp, cs);
+        }
+        int end = cp.addInstruction(new NOP());
+
+        cp.replaceInstruction(ifCondition, new JMPFALSE(elseJmp));
+        cp.replaceInstruction(beforeElse, new JMP(end));
     }
 
 }

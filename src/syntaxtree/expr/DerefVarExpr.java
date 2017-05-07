@@ -1,5 +1,9 @@
 package syntaxtree.expr;
 
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+
 public class DerefVarExpr extends VarExpr {
 
     VarExpr expr;
@@ -28,5 +32,8 @@ public class DerefVarExpr extends VarExpr {
 
         return "(DEREF "+super.getType()+")";
     }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs) {}
 
 }

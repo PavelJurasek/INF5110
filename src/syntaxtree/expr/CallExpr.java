@@ -2,7 +2,9 @@ package syntaxtree.expr;
 
 import syntaxtree.stmt.CallStmt;
 import typesystem.TypeError;
-
+import bytecode.CodeProcedure;
+import bytecode.CodeFile;
+import bytecode.CodeStruct;
 import java.util.Hashtable;
 
 public class CallExpr extends UnaryExpr {
@@ -35,6 +37,11 @@ public class CallExpr extends UnaryExpr {
     @Override
     public void setType(Hashtable<String, String> types) {
 
+    }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs){
+        callStmt.generateCode(cf, cp, null);
     }
 
 }

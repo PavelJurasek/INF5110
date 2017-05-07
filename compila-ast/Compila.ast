@@ -1,100 +1,98 @@
-(PROGRAM (NAME ComplexAddition)
+(PROGRAM (NAME CompilaCmp)
 	(CLASS_DECL (NAME Complex)
 		(VAR_DECL (TYPE float) (NAME Real))
 		(VAR_DECL (TYPE float) (NAME Imag))
 	)
-	(PROC_DECL (NAME Swap)
-		(PARAM_DECL (TYPE (REF int)) (NAME a))
-		(PARAM_DECL (TYPE (REF int)) (NAME b))
+		(VAR_DECL (TYPE Complex) (NAME dummy))
+	(PROC_DECL (TYPE int) (NAME Add)
+		(PARAM_DECL (TYPE int) (NAME x))
+		(PARAM_DECL (TYPE int) (NAME y))
 
-		(VAR_DECL (TYPE int) (NAME tmp))
-
-		(ASSIGN_STMT
-			(NAME tmp)
-			(DEREF (NAME a))
-		)
-		(ASSIGN_STMT
-			(DEREF (NAME a))
-			(DEREF (NAME b))
-		)
-		(ASSIGN_STMT
-			(DEREF (NAME b))
-			(NAME tmp)
-		)
-	)
-	(PROC_DECL (TYPE Complex) (NAME Add)
-		(PARAM_DECL (TYPE Complex) (NAME a))
-		(PARAM_DECL (TYPE Complex) (NAME b))
-
-		(VAR_DECL (TYPE Complex) (NAME retval))
+		(VAR_DECL (TYPE int) (NAME i))
+		(VAR_DECL (TYPE float) (NAME j))
+		(VAR_DECL (TYPE bool) (NAME lit))
 
 		(ASSIGN_STMT
-			(NAME retval)
-			(NEW (TYPE Complex))
+			(NAME i)
+			(INT_LITERAL 5)
 		)
+		(WHILE_STMT
+			(PARENTHESES 
+(REL_OP >
+					(NAME i)
+					(INT_LITERAL 0)
+				)
+			)				(ASSIGN_STMT
+				(NAME i)
+				(ARIT_OP -
+					(NAME i)
+					(INT_LITERAL 1)
+				)
+			)
+
+		)
+
 		(ASSIGN_STMT
-			( . (NAME retval) (NAME Real))
+			(NAME i)
 			(ARIT_OP +
-				( . (NAME a) (NAME Real))
-				( . (NAME b) (NAME Real))
+				(NAME i)
+				(INT_LITERAL 10)
 			)
 		)
 		(ASSIGN_STMT
-			( . (NAME retval) (NAME Imag))
-			(ARIT_OP +
-				( . (NAME a) (NAME Imag))
-				( . (NAME b) (NAME Imag))
+			(NAME i)
+			(ARIT_OP -
+				(NAME i)
+				(INT_LITERAL 1)
 			)
 		)
-		(RETURN_STMT (NAME retval))
-
-	)
-	(PROC_DECL (TYPE int) (NAME Max)
-		(PARAM_DECL (TYPE int) (NAME a))
-		(PARAM_DECL (TYPE int) (NAME b))
-
+		(ASSIGN_STMT
+			(NAME i)
+			(ARIT_OP *
+				(NAME i)
+				(INT_LITERAL 2)
+			)
+		)
+		(ASSIGN_STMT
+			(NAME i)
+			(ARIT_OP /
+				(NAME i)
+				(INT_LITERAL 2)
+			)
+		)
+		(ASSIGN_STMT
+			(NAME lit)
+			(BOOL_LITERAL true)
+		)
 		(IF_STMT
-			(REL_OP >
-				(NAME a)
-				(NAME b)
+						(PARENTHESES 
+(NAME lit)
 			)
 			(
-				(RETURN_STMT (NAME a))
+				(ASSIGN_STMT
+				(NAME i)
+				(INT_LITERAL 0)
+			)
+			)
+				(ASSIGN_STMT
+				(NAME i)
+				(INT_LITERAL 1)
 			)
 		)
 
-		(RETURN_STMT (NAME b))
+		(RETURN_STMT (ARIT_OP +
+			(NAME i)
+			(NAME y)
+		))
 
 	)
 	(PROC_DECL (NAME Main)
-		(PROC_DECL (TYPE float) (NAME Square)
-			(PARAM_DECL (TYPE float) (NAME val))
-
-			(RETURN_STMT (ARIT_OP #
-				(NAME val)
-				(FLOAT_LITERAL 2.0)
-			))
-
-		)
-		(VAR_DECL (TYPE float) (NAME num))
-
-		(ASSIGN_STMT
-			(NAME num)
-			(FLOAT_LITERAL 6.48074)
-		)
-		(CALL_STMT (NAME print_float) 
-			(ACTUAL_PARAM (NAME num))
-		)
-
-		(CALL_STMT (NAME print_str) 
-			(ACTUAL_PARAM (STRING_LITERAL " squared is "))
-		)
-
-		(CALL_STMT (NAME print_float) 
-(ACTUAL_PARAM 			(CALL_STMT (NAME Square) 
-				(ACTUAL_PARAM (NAME num))
+		(CALL_STMT (NAME printint) 
+			(CALL_STMT (NAME Add) 
+				(INT_LITERAL 1)
+				(INT_LITERAL 2)
 			)
-)
+
 		)
 
 		(RETURN_STMT)

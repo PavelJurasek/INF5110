@@ -4,6 +4,9 @@ import syntaxtree.Stmt;
 import syntaxtree.StringUtils;
 import syntaxtree.decl.ProcDecl;
 import typesystem.TypeError;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
 import java.util.Hashtable;
 
 public class DummyStmt extends Stmt {
@@ -22,5 +25,8 @@ public class DummyStmt extends Stmt {
     public void typeCheck(Hashtable<String, String> types, Hashtable<String, ProcDecl> procedures) throws TypeError {
 
     }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs) {}
 
 }

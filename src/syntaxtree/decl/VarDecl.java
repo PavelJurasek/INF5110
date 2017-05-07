@@ -3,10 +3,16 @@ package syntaxtree.decl;
 import syntaxtree.Decl;
 import syntaxtree.StringUtils;
 import syntaxtree.Type;
+
 import typesystem.TypeAware;
 import typesystem.TypeError;
 
 import java.util.Hashtable;
+
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+import bytecode.type.*;
 
 public class VarDecl extends Decl implements TypeAware {
 
@@ -32,4 +38,18 @@ public class VarDecl extends Decl implements TypeAware {
         types.put(name, getType());
     }
 
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs){
+        // Add variable to procedure
+        if (cp != null) {
+            cp.addLocalVariable(name, type.getByteType(cf));
+        // Add variable to struct
+        } else if (cs != null) {
+            cs.addVariable(name, type.getByteType(cf));
+        // Add variable to global
+        } else {
+            cf.addVariable(name);
+            cf.updateVariable(name, type.getByteType(cf));
+        }
+    }
 }

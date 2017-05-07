@@ -3,7 +3,9 @@ package syntaxtree.expr;
 import syntaxtree.Expr;
 import syntaxtree.StringUtils;
 import typesystem.TypeError;
-
+import bytecode.CodeProcedure;
+import bytecode.CodeFile;
+import bytecode.CodeStruct;
 import java.util.Hashtable;
 
 public class ParenthesesExpr extends UnaryExpr {
@@ -40,6 +42,11 @@ public class ParenthesesExpr extends UnaryExpr {
     @Override
     public void setType(Hashtable<String, String> types) throws TypeError {
         expr.setType(types);
+    }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs){
+      expr.generateCode(cf, cp, null);
     }
 
 }

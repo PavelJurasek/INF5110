@@ -8,8 +8,15 @@ import syntaxtree.decl.ProcDecl;
 import syntaxtree.expr.CallExpr;
 import typesystem.TypeChecker;
 import typesystem.TypeError;
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+import bytecode.instructions.CALL;
 import java.util.Hashtable;
 import java.util.List;
+import bytecode.CodeProcedure;
+import bytecode.CodeFile;
+import bytecode.CodeStruct;
 
 public class CallStmt extends Stmt {
 
@@ -83,6 +90,14 @@ public class CallStmt extends Stmt {
     @Override
     public String getType() {
         return this.type;
+    }
+
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs) {
+        for (Expr expr: exprs) {
+            expr.generateCode(cf, cp, cs);
+        }
+        cp.addInstruction(new CALL(cp.procedureNumber(name)));
     }
 
 }

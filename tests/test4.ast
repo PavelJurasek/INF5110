@@ -1,0 +1,51 @@
+(PROGRAM (NAME test4)
+	(PROC_DECL (TYPE float) (NAME Sum)
+		(PARAM_DECL (TYPE float) (NAME v1))
+		(PARAM_DECL (TYPE float) (NAME v2))
+
+		(RETURN_STMT (ARIT_OP +
+			(NAME v1)
+			(NAME v2)
+		))
+
+	)
+	(PROC_DECL (NAME Main)
+		(PROC_DECL (TYPE int) (NAME InnerSum)
+			(PARAM_DECL (TYPE int) (NAME v1))
+			(PARAM_DECL (TYPE int) (NAME v2))
+
+			(RETURN_STMT (ARIT_OP +
+				(NAME v1)
+				(NAME v2)
+			))
+
+		)
+		(VAR_DECL (TYPE float) (NAME f))
+		(VAR_DECL (TYPE int) (NAME v))
+
+		(ASSIGN_STMT
+			(NAME f)
+						(CALL_STMT (NAME Sum) 
+				(FLOAT_LITERAL 41.5)
+				(FLOAT_LITERAL 0.5)
+			)
+
+		)
+		(ASSIGN_STMT
+			(NAME v)
+						(CALL_STMT (NAME InnerSum) 
+				(INT_LITERAL 40)
+				(INT_LITERAL 2)
+			)
+
+		)
+		(CALL_STMT (NAME printfloat) 
+			(NAME f)
+		)
+
+		(CALL_STMT (NAME printint) 
+			(NAME v)
+		)
+
+	)
+)

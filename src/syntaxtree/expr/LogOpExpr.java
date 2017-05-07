@@ -3,7 +3,10 @@ package syntaxtree.expr;
 import syntaxtree.Expr;
 import typesystem.TypeChecker;
 import typesystem.TypeError;
-
+import bytecode.instructions.*;
+import bytecode.CodeProcedure;
+import bytecode.CodeFile;
+import bytecode.CodeStruct;
 import java.util.Hashtable;
 
 public class LogOpExpr extends BinaryExpr {
@@ -41,4 +44,15 @@ public class LogOpExpr extends BinaryExpr {
         }
     }
 
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs){
+      left.generateCode(cf, cp, null);
+      right.generateCode(cf, cp, null);
+      if(op.equals("&&")){
+        cp.addInstruction(new AND());
+      }
+      if(op.equals("||")){
+        cp.addInstruction(new OR());
+      }
+    }
 }

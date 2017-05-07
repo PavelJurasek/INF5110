@@ -3,10 +3,16 @@ package syntaxtree.decl;
 import syntaxtree.Decl;
 import syntaxtree.StringUtils;
 import syntaxtree.Type;
+
 import typesystem.TypeAware;
 import typesystem.TypeError;
 
 import java.util.Hashtable;
+
+import bytecode.CodeFile;
+import bytecode.CodeProcedure;
+import bytecode.CodeStruct;
+import bytecode.type.*;
 
 public class ParamDecl extends Decl implements TypeAware {
 
@@ -31,4 +37,8 @@ public class ParamDecl extends Decl implements TypeAware {
         // no need to check
     }
 
+    @Override
+    public void generateCode(CodeFile cf, CodeProcedure cp, CodeStruct cs){
+        cp.addParameter(name, type.getByteType(cf));
+    }
 }

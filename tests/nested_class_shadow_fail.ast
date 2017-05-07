@@ -1,0 +1,35 @@
+(PROGRAM (NAME nested_class_shadow_fail)
+	(CLASS_DECL (NAME Bogus)
+		(VAR_DECL (TYPE int) (NAME outerScope))
+	)
+	(PROC_DECL (NAME Main)
+		(VAR_DECL (TYPE Bogus) (NAME outer))
+		(PROC_DECL (NAME dummy)
+(CLASS_DECL (NAME Bogus)
+				(VAR_DECL (TYPE int) (NAME innerScope))
+			)
+			(VAR_DECL (TYPE Bogus) (NAME inner))
+
+			(ASSIGN_STMT
+				(NAME inner)
+				(NEW (TYPE Bogus))
+			)
+			(ASSIGN_STMT
+				( . (NAME inner) (NAME outerScope))
+				(INT_LITERAL 123)
+			)
+		)
+
+		(ASSIGN_STMT
+			(NAME outer)
+			(NEW (TYPE Bogus))
+		)
+		(ASSIGN_STMT
+			( . (NAME outer) (NAME outerScope))
+			(INT_LITERAL 1337)
+		)
+		(CALL_STMT (NAME dummy) 
+		)
+
+	)
+)
